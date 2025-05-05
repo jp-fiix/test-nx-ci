@@ -43,5 +43,5 @@ jobs:
       - run: npx nx build core --no-cloud
       - run: npx nx build shop --no-cloud
 
-      - run: aws s3 sync dist/apps/core s3://fiix-test-cmms2
-      - run: aws s3 sync dist/apps/shop s3://fiix-test-cmms2/shop
+      - run: aws s3 sync dist/apps/core s3://test-nx-cmms
+      - run: aws s3 sync dist/apps/shop s3://test-nx-cmms/shop
