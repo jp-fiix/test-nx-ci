@@ -1,0 +1,14 @@
+{
+    "mainProject": "equipment",
+    "branch": "main",
+    "tag": "main",
+    "apps": [
+        {
+            "name": "Equipment",
+            "routerPath": "equipment",
+            "indexPath": "src/index.ts",
+            "mainModule": "EquipmentWebappRoutingModule",
+            "gitUrl": "https://github.com/macmms/cmms2.0-nx-poc-eq"
+        }
+    ]
+}

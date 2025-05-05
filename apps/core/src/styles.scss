@@ -1,0 +1,74 @@
+@import './scss/layout';
+@import './scss/forms';
+@import './scss/helpers';
+
+@import './tailwind.css';
+
+
+html,
+body {
+  height: 100%;
+  background: white;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+.add-ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: rem(390);
+  white-space: nowrap;
+}
+
+fiix-heading {
+  padding-left: 0;
+}
+
+fiix-paginator {
+  margin: rem(17) 0 rem(25) 0;
+}
+
+.drawer-content-body {
+  fiix-paginator {
+    margin: rem(17) 0 rem(80) 0;
+  }
+}
+
+.sticky-button-container {
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: black;
+  width: 100%;
+  z-index: 1;
+
+  button {
+    align-self: center;
+  }
+}
+
+.drawer-footer-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+
+  button {
+    align-self: center;
+  }
+}
+
+.mat-mdc-tooltip {
+  white-space: pre-line;
+}
+
+.anchor {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}

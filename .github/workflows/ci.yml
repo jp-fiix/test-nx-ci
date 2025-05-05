@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  id-token: write
+  actions: read
+  contents: read
+
+jobs:
+  main:
+    runs-on: self-hosted-central
+
+    steps:
+      - name: Configure AWS credentials
+        id: configure-aws-credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_PLAYGROUND_OIDC_APP_DEPLOY_ROLE }}
+          role-duration-seconds: 1800
+          aws-region: us-east-1
+
+      - name: git insteadof
+        env:
+          CONFIG_PATH: "~/.config/git"
+        run: |
+          mkdir -p ${{ env.CONFIG_PATH }} && touch ${{ env.CONFIG_PATH }}/credentials
+          echo "https://actionuser:${{ secrets.DEVOPS_PAT }}@github.com/" >> ${{ env.CONFIG_PATH }}/credentials
+          git config --global credential.helper store
+          git config --global --replace-all url."https://github.com/.insteadof" "ssh://git@github.com"
+          git config --global --add url.https://github.com/.insteadof "git@github.com"
+          git config --global --list
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+
+      - run: python3 init.py
+
+      # Connect your workspace on nx.app and uncomment this to enable task distribution.
+      # The "--stop-agents-after" is optional, but allows idle agents to shut down once the "e2e-ci" targets have been requested
+      # - run: npx nx-cloud start-ci-run --distribute-on="5 linux-medium-js" --stop-agents-after="e2e-ci"
+
+      # Cache node_modules
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'npm'
+      - run: npm ci
+
+      - run: npx nx build core --no-cloud
+      - run: npx nx build equipment --no-cloud
+      - run: npx nx build shop --no-cloud
+
+      - run: aws s3 sync dist/apps/core s3://fiix-test-cmms2
+      - run: aws s3 sync dist/apps/equipment s3://fiix-test-cmms2/equipment
+      - run: aws s3 sync dist/apps/shop s3://fiix-test-cmms2/shop
