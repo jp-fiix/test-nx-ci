@@ -13,8 +13,24 @@
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "baseUrl": ".",
-    "paths": {}
+    "baseUrl": "./",
+    "paths": {
+      "equipment/Routes": [
+        "apps/equipment/src/app/remote-entry/entry.routes.ts"
+      ],
+      "shop/Routes": [
+        "apps/shop/src/app/remote-entry/entry.routes.ts"
+      ],
+      "@core/*": [
+        "shared/core/*"
+      ],
+      "@equipment/*": [
+          "apps/equipment/src/*"
+      ],
+      "@cmms2.0/Equipment": [
+          "apps/equipment/src/index.ts"
+      ],
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
