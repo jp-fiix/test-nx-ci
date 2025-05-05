@@ -26,9 +26,7 @@ jobs:
           node-version: 20
           cache: 'npm'
 
-      - run: npm ci --legacy-peer-deps
-
-      - run: npx nx build test-nx-ci --no-cloud
+      - run: npm i
 
       - name: Configure AWS credentials
         id: configure-aws-credentials
@@ -38,8 +36,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
           mask-aws-account-id: "no"
-
-      - run: aws s3 sync dist/apps/core s3://test-nx-cmms
 
       - run: npx nx build core --no-cloud
       - run: npx nx build shop --no-cloud
