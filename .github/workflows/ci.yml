@@ -37,6 +37,9 @@ jobs:
           aws-region: us-east-1
           mask-aws-account-id: "no"
 
+
+      - run: python3 init.py
+
       - run: npx nx build core --no-cloud
       - run: npx nx build shop --no-cloud
 
