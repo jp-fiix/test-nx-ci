@@ -4,11 +4,11 @@
     "tag": "main",
     "apps": [
         {
-            "name": "Equipment",
-            "routerPath": "equipment",
+            "name": "Shop",
+            "routerPath": "shop",
             "indexPath": "src/index.ts",
             "mainModule": "EquipmentWebappRoutingModule",
-            "gitUrl": "https://github.com/macmms/cmms2.0-nx-poc-eq"
+            "gitUrl": "https://github.com/jp-fiix/test-nx-ci-shop"
         }
     ]
 }
